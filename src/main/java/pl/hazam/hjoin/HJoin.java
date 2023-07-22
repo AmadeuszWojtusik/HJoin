@@ -40,15 +40,18 @@ public class HJoin extends JavaPlugin {
 
     /** CHECK AND CREATE FILE AND CONFIG **/
     private void checkAndCreateConfigFiles() {
-        File pluginFolder = getDataFolder();
-        if (!pluginFolder.exists()) {
-            pluginFolder.mkdirs();
-        }
+        File pluginFolder = getDataFolder().getParentFile();
 
-        // Sprawdź i utwórz folder HPlugin.
+        // Sprawdź i utwórz folder HPlugin wewnątrz folderu pluginu.
         File hPluginFolder = new File(pluginFolder, "HPlugin");
         if (!hPluginFolder.exists()) {
             hPluginFolder.mkdirs();
+        }
+
+        // Teraz utwórz folder HJoin wewnątrz folderu HPlugin.
+        File hJoinFolder = new File(hPluginFolder, "HJoin");
+        if (!hJoinFolder.exists()) {
+            hJoinFolder.mkdirs();
         }
 
         // Sprawdź i utwórz plik globalconfig.yml w folderze HPlugin.
@@ -56,16 +59,10 @@ public class HJoin extends JavaPlugin {
         if (!globalConfigFile.exists()) {
             try {
                 // Skopiuj domyślny config do nowo utworzonego pliku.
-                copyDefaultConfigFile("/globalconfig.yml", globalConfigFile);
+                copyDefaultConfigFile("globalconfig.yml", globalConfigFile);
             } catch (IOException e) {
                 getLogger().warning("Nie można utworzyć pliku globalconfig.yml.");
             }
-        }
-
-        // Sprawdź i utwórz folder HJoin w folderze HPlugin.
-        File hJoinFolder = new File(hPluginFolder, "HJoin");
-        if (!hJoinFolder.exists()) {
-            hJoinFolder.mkdirs();
         }
 
         // Sprawdź i utwórz plik config.yml w folderze HJoin.
@@ -73,7 +70,7 @@ public class HJoin extends JavaPlugin {
         if (!configFile.exists()) {
             try {
                 // Skopiuj domyślny config do nowo utworzonego pliku.
-                copyDefaultConfigFile("/config.yml", configFile);
+                copyDefaultConfigFile("config.yml", configFile);
             } catch (IOException e) {
                 getLogger().warning("Nie można utworzyć pliku config.yml.");
             }

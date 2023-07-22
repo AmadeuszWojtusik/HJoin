@@ -1,11 +1,11 @@
 name: HJoin
-version: 0.0.30 Alpha
+version: 0.0.39 Alpha / spigot-api-1.19.4-R0.1-20230421.091621-67
 main: pl.hazam.hjoin.HJoin
 author: Mikołaj.Amadeusz.Wojtusik
 description: Plugin zbierający dane o urzytkownikach i zapisujący do bazy danych oraz wykonywujący określone komendy po dołączeniu gracza do serwera.
 website: https://www.hazam.pl/hplugin/hjoin
-api-version: 1.19.2_spigot-api-1.19.4-R0.1-20230421.091621-67
-depend: #[AnotherPlugin, YetAnotherPlugin] # Zależności od innych pluginów
+api-version: 1.19
+#depend: #[AnotherPlugin, YetAnotherPlugin] # Zależności od innych pluginów
 softdepend: [HLogin] # Opcjonalne zależności od innych pluginów
 load: STARTUP # Sposób ładowania pluginu (STARTUP, POSTWORLD, NORMAL)
 prefix: '&a[HJoin]' # Prefiks dla wiadomości z tego pluginu
