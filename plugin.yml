@@ -1,0 +1,47 @@
+name: HJoin
+version: 0.0.30 Alpha
+main: pl.hazam.hjoin.HJoin
+author: Mikołaj.Amadeusz.Wojtusik
+description: Plugin zbierający dane o urzytkownikach i zapisujący do bazy danych oraz wykonywujący określone komendy po dołączeniu gracza do serwera.
+website: https://www.hazam.pl/hplugin/hjoin
+api-version: 1.19.2_spigot-api-1.19.4-R0.1-20230421.091621-67
+depend: #[AnotherPlugin, YetAnotherPlugin] # Zależności od innych pluginów
+softdepend: [HLogin] # Opcjonalne zależności od innych pluginów
+load: STARTUP # Sposób ładowania pluginu (STARTUP, POSTWORLD, NORMAL)
+prefix: '&a[HJoin]' # Prefiks dla wiadomości z tego pluginu
+
+commands:
+  hjoin:
+    description: Komenda przykładu
+    usage: /hjoin SUBCOMMAND
+    permission: hjoin.use.nonearguments # Wymagane uprawnienie do użycia komendy
+    aliases: [hj]
+
+permissions:
+  hjoin.use:
+    description: Uprawnienie do użycia komendy hj bez parametrów.
+    default: true # Domyślna wartość uprawnienia (op, true, false)
+  hjoin.help:
+    description: Uprawnienie do użycia komendy help.
+    default: op # Domyślna wartość uprawnienia (op, true, false)
+  hjoin.add:
+    description: Uprawnienie do dodawania komend.
+    default: op # Domyślna wartość uprawnienia (op, true, false)
+  hjoin.remove:
+    description: Uprawnienie do usówania komend
+    default: op # Domyślna wartość uprawnienia (op, true, false)
+  hjoin.info.Player:
+    description: Uprawnienie do wyświetlania informacji o graczu.
+    default: op # Domyślna wartość uprawnienia (op, true, false)
+  hjoin.info.command:
+    description: Uprawnienie do wyświetlania listy komend.
+    default: op # Domyślna wartość uprawnienia (op, true, false)
+  hjoin.reset:
+    description: Uprawnienie do resetowania ustawień domyślnych urzytkowników.
+    default: false # Domyślna wartość uprawnienia (op, true, false)
+  hjoin.*:
+    description: Uprawnienie do wszystykiego.
+    default: false # Domyślna wartość uprawnienia (op, true, false)
+
+events:
+  pl.hazam.hjoin.Listener.Events: NORMAL # Sposób obsługi zdarzeń (HIGH, HIGHEST, LOW, LOWEST, MONITOR, NORMAL)
