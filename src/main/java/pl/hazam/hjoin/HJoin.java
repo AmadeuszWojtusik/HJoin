@@ -98,10 +98,19 @@ public class HJoin extends JavaPlugin {
     }
 
    /** COPING FILE AND CONFIG **/
+//   public static void copyDefaultConfigFile(File sourceFile, File destFile) throws IOException {
+//       if (!destFile.exists()) {
+//           Files.copy(sourceFile.toPath(), destFile.toPath(), StandardCopyOption.COPY_ATTRIBUTES);
+//           System.out.println("Plik skopiowany z: " + sourceFile.getAbsolutePath() + " do: " + destFile.getAbsolutePath());
+//       } else {
+//           System.out.println("Plik już istnieje w lokalizacji docelowej: " + destFile.getAbsolutePath());
+//       }
+//   }
+
     private void copyDefaultConfigFile(String defaultResourcePath, File targetFile) throws IOException {
         try (InputStream inputStream = getResource(defaultResourcePath)) {
             if (inputStream != null) {
-                Files.copy(inputStream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    Files.copy(inputStream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             } else {
                 getLogger().warning("Nie znaleziono domyślnego pliku konfiguracyjnego. " + defaultResourcePath);
             }
@@ -112,11 +121,11 @@ public class HJoin extends JavaPlugin {
 
     /** =========== LOADING CONFIGURATION ===========**/
     private void loadConfigurations() {
-        File globalConfigFile = new File(new File(getDataFolder(), "HPlugin"), "globalconfig.yml");
+        File globalConfigFile = new File("plugins/HPlugin/globalconfig.yml");
         globalConfig = YamlConfiguration.loadConfiguration(globalConfigFile);
+        getLogger().info(globalConfig.getString("Version"));
 
-        File configFile = new File(new File(new File(getDataFolder(), "HPlugin"), "HJoin"), "config.yml");
+        File configFile = new File("HJoin/config.yml");
         config = YamlConfiguration.loadConfiguration(configFile);
-
     }
 }

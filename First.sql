@@ -9,4 +9,4 @@ CREATE TABLE IF NOT EXISTS `hjoin` (
     `FCDATE` DATE,
     `FCIP` VARCHAR(16),
     PRIMARY KEY (`ID`)
-) ENGINE=InnoDB;
+);

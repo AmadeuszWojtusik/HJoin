@@ -1,5 +1,6 @@
 #
 #--TRUE = MYSQL------FALE = SQL LITE
+Version: '00.02-Alpha'
 MySQL: false
 server: ''
 port: ''
@@ -8,3 +9,5 @@ user: ''
 password: ''
 ssl: 'false'
 timezone: 'UTC'
+
+tittest: '123456'

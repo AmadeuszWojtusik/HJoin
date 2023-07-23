@@ -1,5 +1,5 @@
 name: HJoin
-version: 0.0.60-Alpha-23-07-2023-spigot-api-1.19.4-R0.1-SNAPSHOT
+version: 0.1.40-Alpha-23-07-2023-spigot-api-1.19.4-R0.1-SNAPSHOT
 main: pl.hazam.hjoin.HJoin
 author: Mikołaj.Amadeusz.Wojtusik
 description: Plugin zbierający dane o urzytkownikach i zapisujący do bazy danych oraz wykonywujący określone komendy po dołączeniu gracza do serwera.

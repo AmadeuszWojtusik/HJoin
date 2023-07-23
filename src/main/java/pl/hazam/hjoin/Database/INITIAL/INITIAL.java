@@ -9,8 +9,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 
 public class INITIAL {
 
@@ -23,6 +25,7 @@ public class INITIAL {
 
         boolean useMySQL = globalConfig.getBoolean("MySQL");
         plugin.getLogger().warning(String.valueOf(useMySQL));
+        plugin.getLogger().warning(globalConfig.getString("tittest"));
         boolean initialized = false;
 
         if (useMySQL) {
@@ -42,28 +45,41 @@ public class INITIAL {
             return false;
         }
     }
-    private boolean initialSQLExecute(Connection connection) throws IOException, SQLException {
+    private boolean initialSQLExecute(Connection connection, boolean databaseType) throws IOException, SQLException {
         // Otwieranie pliku ze skryptem SQL
         try {
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("First.sql");
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream((databaseType ? "First.sql" : "FirstLite.sql"));
+            plugin.getLogger().info("1");
             assert inputStream != null;
+            plugin.getLogger().info("2");
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
+            plugin.getLogger().info("3");
 
             StringBuilder query = new StringBuilder();
+            plugin.getLogger().info("4");
             String line;
+            plugin.getLogger().info("5");
             while ((line = reader.readLine()) != null) {
+                plugin.getLogger().info("A");
                 // Sprawdzamy, czy linia jest pusta lub jest komentarzem.
                 if (!line.trim().isEmpty() && !line.trim().startsWith("--")) {
+                    plugin.getLogger().info("B");
                     query.append(line).append(" ");
+                    plugin.getLogger().info("C");
                     // Jeśli linia kończy się średnikiem, wykonujemy zapytanie SQL
                     if (line.trim().endsWith(";")) {
+                        plugin.getLogger().info("D");
                         String singleQuery = query.toString().trim();
+                        plugin.getLogger().info("E");
                         // Wykonanie pojedynczego zapytania SQL
                         Statement statement = connection.createStatement();
+                        plugin.getLogger().info("F");
                         statement.execute(singleQuery);
+                        plugin.getLogger().info("G");
                         statement.close();
+                        plugin.getLogger().info("H");
                         query.setLength(0);
+                        plugin.getLogger().info("I");
                     }
                 }
             }
@@ -83,25 +99,32 @@ public class INITIAL {
             plugin.getLogger().warning("[FJ] INITIAL SQL EXECUTE NULL POINTER ERROR" + e);
             return false;
         }finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                plugin.getLogger().warning("[FJ] INITIAL SQL EXECUTE CONNECTION CLOSE ERROR" + e);
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    plugin.getLogger().warning("Error while closing " + (databaseType ? "MYSQL" : "SQL LITE") + " connection: " + e);
+                }
+            } else {
+                plugin.getLogger().warning("[FJ] Connection object is null before closing!");
             }
         }
         return true;
     }
+
 
     private boolean initialDatabase(boolean databaseType) {
         Connection connection = null;
         try {
             if (databaseType) {
                 connection = DbUtil.getConnection(globalConfig);
+                assert connection != null;
             } else{
                 connection = DbUtil.getSQLiteConnection();
+                assert connection != null;
             }
 
-            if (connection != null && initialSQLExecute(connection)) {
+            if (initialSQLExecute(connection,databaseType)) {
                 plugin.getLogger().info("INITIAL DATABASE " + (databaseType ? "MYSQL" : "SQL LITE") + " SUCCESS");
                 return true;
             } else {
@@ -111,7 +134,11 @@ public class INITIAL {
         } catch (IOException | SQLException e) {
             plugin.getLogger().warning("HJOIN DATABASE INITIAL " + (databaseType ? "MYSQL" : "SQL LITE") + " ERROR: " + e);
             return false;
-        } finally {
+        } catch (AssertionError e){
+            plugin.getLogger().warning("HJOIN DATABASE INITIAL ASSERTION " + (databaseType ? "MYSQL" : "SQL LITE") + " ERROR: " + e);
+            return false;
+        }finally {
+
             if (connection != null) {
                 try {
                     connection.close();
@@ -121,5 +148,4 @@ public class INITIAL {
             }
         }
     }
-
 }
