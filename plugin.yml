@@ -1,5 +1,5 @@
 name: HJoin
-version: 0.0.39 Alpha / spigot-api-1.19.4-R0.1-20230421.091621-67
+version: 0.0.50-Alpha-23-07-2023-spigot-api-1.19.4-R0.1-SNAPSHOT
 main: pl.hazam.hjoin.HJoin
 author: Mikołaj.Amadeusz.Wojtusik
 description: Plugin zbierający dane o urzytkownikach i zapisujący do bazy danych oraz wykonywujący określone komendy po dołączeniu gracza do serwera.
@@ -11,10 +11,10 @@ load: STARTUP # Sposób ładowania pluginu (STARTUP, POSTWORLD, NORMAL)
 prefix: '&a[HJoin]' # Prefiks dla wiadomości z tego pluginu
 
 commands:
-  hjoin:
+  hj:
     description: Komenda przykładu
-    usage: /hjoin SUBCOMMAND
-    permission: hjoin.use.nonearguments # Wymagane uprawnienie do użycia komendy
+    usage: /hj SUBCOMMAND
+    permission: hjoin.use # Wymagane uprawnienie do użycia komendy
     aliases: [hj]
 
 permissions:
