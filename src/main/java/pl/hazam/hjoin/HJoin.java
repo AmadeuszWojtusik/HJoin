@@ -3,7 +3,6 @@ package pl.hazam.hjoin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.configuration.file.YamlConfiguration;
 import pl.hazam.hjoin.CMD.CMD;
-import pl.hazam.hjoin.Database.DbUtil.DbUtil;
 import pl.hazam.hjoin.Database.INITIAL.INITIAL;
 import pl.hazam.hjoin.Listener.Events;
 
@@ -12,8 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.sql.Connection;
-import java.sql.SQLException;
+
 import java.util.Objects;
 
 public class HJoin extends JavaPlugin {
@@ -28,9 +26,6 @@ public class HJoin extends JavaPlugin {
         checkAndCreateConfigFiles();
         loadConfigurations();
 
-        globalConfig = getGlobalConfig();
-        config = getConfig();
-
         getServer().getPluginManager().registerEvents(new Events(),this);
         try {
             Objects.requireNonNull(getCommand("hj")).setExecutor(new CMD());
@@ -38,51 +33,20 @@ public class HJoin extends JavaPlugin {
             getLogger().warning("GET COMMAND ERROR" + e);
         }
 
+        //Inicjalizacja bazy danych
+        INITIAL initial = new INITIAL();
+        boolean initialSuccess = initial.initialStart(globalConfig,this);
 
-        //Sprawdzam czy MYSQL
-        boolean useMySQL = globalConfig.getBoolean("MySQL");
-        boolean initialized = false;
-
-        if (useMySQL) {
-            initialized = initialDatabase(true);
-        }
-
-        if (!initialized) {
-            getLogger().warning("USING SQL LITE");
-            initialized = initialDatabase(false);
-        }
-
-        if (initialized) {
-            getLogger().info("INITIAL " + (useMySQL ? "MYSQL" : "SQL LITE") + " SUCCESS");
+        if(initialSuccess){
             getLogger().info("#####################");
             getLogger().info("----FJ ENABLING------");
             getLogger().info("------SUCCESS--------");
             getLogger().info("#####################");
-        } else {
-            getLogger().warning("SQL LITE ERROR --- DISABLING PLUGIN");
+        }else{
+            getLogger().warning("DATABASE ERROR");
+            getLogger().warning("DISABLING PLUGIN");
             onDisable();
         }
-
-//        if(globalConfig.getBoolean("MySQL")) {
-//            if(initialMYSQL()){
-//                getLogger().info("INITIAL MYSQL SUCCESS");
-//            } else {
-//                getLogger().warning("USING LIGHTSQL");
-//                if (initialLIGHTSQL()){
-//                    getLogger().info("INITIAL LIGHT SQL SUCCESS");
-//                } else {
-//                    getLogger().warning("LIGHT SQL ERROR --- DISABLING PLUGIN");
-//                    onDisable();
-//                }
-//            }
-//        } else {
-//            if (initialLIGHTSQL()){
-//                getLogger().info("INITIAL LIGHT SQL SUCCESS");
-//            } else {
-//                getLogger().warning("LIGHT SQL ERROR --- DISABLING PLUGIN");
-//                onDisable();
-//            }
-//        }
     }
 
 
@@ -93,70 +57,6 @@ public class HJoin extends JavaPlugin {
 
 
     }
-
-/** ==================== INITIAL DATABASE ==================== **/
-    //TRUE = MYSQL FALSE = SQL LITE
-    private boolean initialDatabase(boolean databaseType) {
-        INITIAL initial = new INITIAL();
-        Connection connection = null;
-        try {
-            if (databaseType) {
-                connection = DbUtil.getConnection(globalConfig);
-            } else{
-                connection = DbUtil.getSQLiteConnection();
-            }
-
-            if (connection != null && initial.INITIALSQL(connection)) {
-                getLogger().info("INITIAL BODY " + (databaseType ? "MYSQL" : "SQL LITE") + " SUCCESS");
-                return true;
-            } else {
-                getLogger().warning("INITIAL BODY " + (databaseType ? "MYSQL" : "SQL LITE") + " ERROR");
-                return false;
-            }
-        } catch (IOException | SQLException e) {
-            getLogger().warning("HJOIN BODY INITIAL " + (databaseType ? "MYSQL" : "SQL LITE") + " ERROR: " + e);
-            return false;
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    getLogger().warning("Error while closing " + (databaseType ? "MYSQL" : "SQL LITE") + " connection: " + e);
-                }
-            }
-        }
-    }
-
-//    private boolean  initialSQLLITE() {
-//        INITIAL initial = new INITIAL();
-//        try {
-//            if (!initial.INITIALSQL(DbUtil.getSQLiteConnection())){
-//                getLogger().warning("INITIAL SQL LITE ERROR");
-//                return false;
-//            } else {
-//                return true;
-//            }
-//        } catch (IOException | SQLException e) {
-//            getLogger().warning("HJOIN BODY INITIAL SQL LITE ERROR" + e);
-//            return false;
-//        }
-//    }
-//
-//    /** INICJAL MYSQL **/
-//    private boolean initialMYSQL() {
-//        INITIAL initial = new INITIAL();
-//        try {
-//            if (!initial.INITIALSQL(DbUtil.getConnection(globalConfig))){
-//                getLogger().warning("INITIAL MYSQL ERROR");
-//                return false;
-//            } else {
-//                return true;
-//            }
-//        } catch (IOException | SQLException e) {
-//            getLogger().warning("HJOIN BODY INITIAL MYSQL ERROR" + e);
-//            return false;
-//        }
-//    }
 
     /** CHECK AND CREATE FILE AND CONFIG **/
     private void checkAndCreateConfigFiles() {
@@ -219,13 +119,4 @@ public class HJoin extends JavaPlugin {
         config = YamlConfiguration.loadConfiguration(configFile);
 
     }
-
-    public YamlConfiguration getGlobalConfig() {
-        return globalConfig;
-    }
-
-    public YamlConfiguration getConfig() {
-        return config;
-    }
 }
-/** ================================================================= **/

@@ -1,6 +1,6 @@
 #
 #--TRUE = MYSQL------FALE = SQL LITE
-Mysql: false
+MySQL: false
 server: ''
 port: ''
 database: ''
