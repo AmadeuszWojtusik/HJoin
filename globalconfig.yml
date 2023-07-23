@@ -1,0 +1,10 @@
+#
+#--TRUE = MYSQL------FALE = SQL LITE
+Mysql: false
+server: ''
+port: ''
+database: ''
+user: ''
+password: ''
+ssl: 'false'
+timezone: 'UTC'

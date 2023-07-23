@@ -38,19 +38,22 @@ public class INITIAL {
             // Zamknięcie połączenia i zasobów
             reader.close();
         } catch (IOException e) {
-            System.out.println("[FJ] IO ERROR" + e);
+            System.out.println("[FJ] INITIAL IO ERROR" + e);
             return false;
         } catch (SQLException e) {
-            System.out.println("[FJ] SQL ERROR" + e);
+            System.out.println("[FJ] INITIAL SQL ERROR" + e);
             return false;
         } catch (AssertionError e) {
-            System.out.println("[FJ] Assertion ERROR" + e);
+            System.out.println("[FJ] INITIAL Assertion ERROR" + e);
             return false;
-        } finally {
+        } catch (NullPointerException e) {
+            System.out.println("[FJ] INITIAL NULL POINTER ERROR" + e);
+            return false;
+        }finally {
             try {
                 connection.close();
             } catch (SQLException e) {
-                System.out.println("[FJ] INICJAL CONNECTION CLOSE ERROR" + e);
+                System.out.println("[FJ] INITIAL CONNECTION CLOSE ERROR" + e);
             }
         }
         return true;

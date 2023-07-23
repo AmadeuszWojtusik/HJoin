@@ -37,6 +37,8 @@ public class HJoin extends JavaPlugin {
         } catch (NullPointerException e){
             getLogger().warning("GET COMMAND ERROR" + e);
         }
+
+
         //Sprawdzam czy MYSQL
         boolean useMySQL = globalConfig.getBoolean("MySQL");
         boolean initialized = false;
@@ -46,21 +48,21 @@ public class HJoin extends JavaPlugin {
         }
 
         if (!initialized) {
-            getLogger().warning("USING SQLLITE");
+            getLogger().warning("USING SQL LITE");
             initialized = initialDatabase(false);
         }
 
         if (initialized) {
             getLogger().info("INITIAL " + (useMySQL ? "MYSQL" : "SQL LITE") + " SUCCESS");
+            getLogger().info("#####################");
+            getLogger().info("----FJ ENABLING------");
+            getLogger().info("------SUCCESS--------");
+            getLogger().info("#####################");
         } else {
             getLogger().warning("SQL LITE ERROR --- DISABLING PLUGIN");
             onDisable();
         }
 
-        getLogger().info("#####################");
-        getLogger().info("----FJ ENABLING------");
-        getLogger().info("------SUCCESS--------");
-        getLogger().info("#####################");
 //        if(globalConfig.getBoolean("MySQL")) {
 //            if(initialMYSQL()){
 //                getLogger().info("INITIAL MYSQL SUCCESS");
@@ -105,10 +107,10 @@ public class HJoin extends JavaPlugin {
             }
 
             if (connection != null && initial.INITIALSQL(connection)) {
-                getLogger().info("INITIAL " + (databaseType ? "MYSQL" : "SQL LITE") + " SUCCESS");
+                getLogger().info("INITIAL BODY " + (databaseType ? "MYSQL" : "SQL LITE") + " SUCCESS");
                 return true;
             } else {
-                getLogger().warning("INITIAL " + (databaseType ? "MYSQL" : "SQL LITE") + " ERROR");
+                getLogger().warning("INITIAL BODY " + (databaseType ? "MYSQL" : "SQL LITE") + " ERROR");
                 return false;
             }
         } catch (IOException | SQLException e) {
