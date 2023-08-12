@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -49,37 +48,26 @@ public class INITIAL {
         // Otwieranie pliku ze skryptem SQL
         try {
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream((databaseType ? "First.sql" : "FirstLite.sql"));
-            plugin.getLogger().info("1");
             assert inputStream != null;
-            plugin.getLogger().info("2");
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            plugin.getLogger().info("3");
-
             StringBuilder query = new StringBuilder();
-            plugin.getLogger().info("4");
             String line;
-            plugin.getLogger().info("5");
+
             while ((line = reader.readLine()) != null) {
-                plugin.getLogger().info("A");
+
                 // Sprawdzamy, czy linia jest pusta lub jest komentarzem.
                 if (!line.trim().isEmpty() && !line.trim().startsWith("--")) {
-                    plugin.getLogger().info("B");
                     query.append(line).append(" ");
-                    plugin.getLogger().info("C");
+
                     // Jeśli linia kończy się średnikiem, wykonujemy zapytanie SQL
                     if (line.trim().endsWith(";")) {
-                        plugin.getLogger().info("D");
                         String singleQuery = query.toString().trim();
-                        plugin.getLogger().info("E");
+
                         // Wykonanie pojedynczego zapytania SQL
                         Statement statement = connection.createStatement();
-                        plugin.getLogger().info("F");
                         statement.execute(singleQuery);
-                        plugin.getLogger().info("G");
                         statement.close();
-                        plugin.getLogger().info("H");
                         query.setLength(0);
-                        plugin.getLogger().info("I");
                     }
                 }
             }
