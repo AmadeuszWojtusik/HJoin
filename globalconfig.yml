@@ -1,5 +1,11 @@
 #
-#--TRUE = MYSQL------FALE = SQL LITE
+#
+#
+#
+#####================ DATABASE CONFIG ================#######
+# -------TRUE = MYSQL------
+# ------ FALE = SQL LITE
+
 Version: '00.02-Alpha'
 MySQL: false
 server: ''
@@ -9,5 +15,11 @@ user: ''
 password: ''
 ssl: 'false'
 timezone: 'UTC'
-
 tittest: '123456'
+#####================ LANGUAGE ================#######
+# Language files in language folders
+lang: 'PL-pl'
+#####================ ADMINISTRATION CONF ================#######
+
+#####================ ================#######
+#####================ ================#######
