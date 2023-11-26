@@ -36,7 +36,7 @@ public class HJoin extends JavaPlugin {
 
         try {
             //================== REJESTRACJA COMMANDE MENAGER ===============================
-            Objects.requireNonNull(getCommand("hj")).setExecutor(new CMD());
+            Objects.requireNonNull(getCommand("hj")).setExecutor(new CMD(this));
         } catch (NullPointerException e){
             getLogger().warning("GET COMMAND ERROR" + e);
             onDisable();
