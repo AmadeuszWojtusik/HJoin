@@ -16,12 +16,12 @@ public class CMD implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("hj")) {
-            sender.sendMessage(ChatColor.BOLD + " " + ChatColor.DARK_PURPLE + "*=======================================================*");
-            sender.sendMessage(ChatColor.BOLD + " " + ChatColor.DARK_PURPLE + "==== [HJoin] VERSJA:" + ChatColor.RESET + " " + ChatColor.AQUA + plugin.getConfig().getString("version"));
-            sender.sendMessage(ChatColor.BOLD + " " + ChatColor.DARK_PURPLE + "==== [HJoin] AUTOR:" + ChatColor.RESET + " " + ChatColor.AQUA + plugin.getConfig().getString("author"));
-            sender.sendMessage(ChatColor.BOLD + " " + ChatColor.DARK_PURPLE + "==== [HJoin] STRONA:" + ChatColor.RESET + " " + ChatColor.AQUA + plugin.getConfig().getString("website"));
-            sender.sendMessage(ChatColor.BOLD + " " + ChatColor.DARK_PURPLE + "==== [HJoin] VERSJA API:" + ChatColor.RESET + " " + ChatColor.AQUA + plugin.getConfig().getString("api-version"));
-            sender.sendMessage(ChatColor.BOLD + " " + ChatColor.DARK_PURPLE + "*=======================================================*");
+            sender.sendMessage(ChatColor.BOLD + " " + ChatColor.DARK_GREEN + "*=========================================*");
+            sender.sendMessage(ChatColor.BOLD + " " + ChatColor.GOLD + "[HJoin] VERSJA:" + ChatColor.RESET + " " + ChatColor.AQUA + plugin.getDescription().getVersion());
+            sender.sendMessage(ChatColor.BOLD + " " + ChatColor.GOLD + "[HJoin] AUTOR:" + ChatColor.RESET + " " + ChatColor.AQUA + plugin.getDescription().getAuthors());
+            sender.sendMessage(ChatColor.BOLD + " " + ChatColor.GOLD + "[HJoin] STRONA:" + ChatColor.RESET + " " + ChatColor.AQUA + plugin.getDescription().getWebsite());
+            sender.sendMessage(ChatColor.BOLD + " " + ChatColor.GOLD + "[HJoin] VERSJA API:" + ChatColor.RESET + " " + ChatColor.AQUA + plugin.getDescription().getAPIVersion());
+            sender.sendMessage(ChatColor.BOLD + " " + ChatColor.DARK_GREEN + "*========================================*");
             return true;
         }
         return false;

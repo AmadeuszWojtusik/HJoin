@@ -27,7 +27,7 @@ JCommand:
 #####================ DATABASE CONFIG ================#######
 # -------TRUE = MYSQL------
 # ------ FALE = SQL LITE
-MySQL: false
+MySQL: true
 server: 'localhost'
 port: '3306'
 database: 'FirstJoin'

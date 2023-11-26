@@ -85,12 +85,20 @@ public class Init {
     }
 
     /** ======================== LOADING CONFIGURATION ===========================**/
-    public static void loadConfigurations(Plugin plugin, YamlConfiguration globalConfig, YamlConfiguration config) {
-        File globalConfigFile = new File("plugins/HPlugin/globalconfig.yml");
-        globalConfig = YamlConfiguration.loadConfiguration(globalConfigFile);
-        plugin.getLogger().info(globalConfig.getString("Version"));
+    public static YamlConfiguration loadConfigurations(Plugin plugin, int conf) {
 
-        File configFile = new File("HJoin/config.yml");
-        config = YamlConfiguration.loadConfiguration(configFile);
+        if (conf == 1) {
+            YamlConfiguration globalConfig;
+            File globalConfigFile = new File("plugins/HPlugin/globalconfig.yml");
+            globalConfig = YamlConfiguration.loadConfiguration(globalConfigFile);
+            plugin.getLogger().info(globalConfig.getString("Version"));
+            return globalConfig;
+        } else if (conf == 2) {
+            YamlConfiguration config;
+            File configFile = new File("HJoin/config.yml");
+            config = YamlConfiguration.loadConfiguration(configFile);
+            return config;
+        }
+        return null;
     }
 }

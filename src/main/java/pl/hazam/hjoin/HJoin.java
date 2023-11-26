@@ -1,5 +1,6 @@
 package pl.hazam.hjoin;
 
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.configuration.file.YamlConfiguration;
 import pl.hazam.hjoin.CMD.CMD;
@@ -28,8 +29,10 @@ public class HJoin extends JavaPlugin {
 
         getLogger().info("HJoin Enabled! Check Configuration.");
 
+//============================= ŁADOWANIE KONFIGURACJI ==========================================
         Init.checkAndCreateConfigFiles(this); //SPRAWDZAM I TWORZĘ CONFIGI
-        Init.loadConfigurations(this, globalConfig, config); //ŁADUJE KONFIGURACJE POCZĄTKOWĄ
+        globalConfig = Init.loadConfigurations(this, 1); //ŁADUJE KONFIGURACJE POCZĄTKOWĄ
+        config = Init.loadConfigurations(this, 2);
 
 //=================== REJESTRACJA PLUGINU  I EVENTU ============================================
         getServer().getPluginManager().registerEvents(new Events(),this);

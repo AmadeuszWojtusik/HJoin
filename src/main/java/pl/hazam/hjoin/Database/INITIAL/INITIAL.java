@@ -24,7 +24,6 @@ public class INITIAL {
 
         boolean useMySQL = globalConfig.getBoolean("MySQL");
         plugin.getLogger().warning(String.valueOf(useMySQL));
-        plugin.getLogger().warning(globalConfig.getString("tittest"));
         boolean initialized = false;
 
         if (useMySQL) {
