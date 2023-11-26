@@ -72,7 +72,7 @@ public class Init {
 
     /** ================ COPING FILE AND CONFIG ================================== **/
 
-    public void copyDefaultConfigFile(String defaultResourcePath, File targetFile, Plugin plugin) throws IOException {
+    public static void copyDefaultConfigFile(String defaultResourcePath, File targetFile, Plugin plugin) throws IOException {
         try (InputStream inputStream = plugin.getResource(defaultResourcePath)) {
             if (inputStream != null) {
                 Files.copy(inputStream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
