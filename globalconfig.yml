@@ -1,25 +1,51 @@
 #
+#DO NOT CHANGE !!!!
+Version: '01.12-Alpha'
+#================WELCOME MESSAGE AND JOIN COMMAND==============#
+#DO NOT WRITE / IN COMMAND
 #
+#Player name in the message %player%
+#ONLY ONE MESSAGE
+JoinMessage: true
+WelcomeMessage: 'Welcome to the server %player%. I`m First Join Plugin FJ.'
+#
+OnlyOneCommandExecute: false
+OOCommand:
+  - 'say I`m ONLY ONE FIRST COMMAND %player% this is our UUID: %uuid%'
+  -
+#  %player%  %uuid%
+FirstJoinCommand: false
+FJCommand:
+  - 'say I`m FIRST Join Command %player% this is our UUID: %uuid%'
+  -
+JoinCommand: false
+JCommand:
+  - 'say I`m Join Command %player% this is our UUID: %uuid%'
+  -
 #
 #
 #####================ DATABASE CONFIG ================#######
 # -------TRUE = MYSQL------
 # ------ FALE = SQL LITE
-
-Version: '00.02-Alpha'
 MySQL: false
-server: ''
-port: ''
-database: ''
-user: ''
-password: ''
+server: 'localhost'
+port: '3306'
+database: 'FirstJoin'
+user: 'FirstJoin'
+password: 'password'
+#==================================
 ssl: 'false'
+characterEncoding: 'utf8'
 timezone: 'UTC'
-tittest: '123456'
+#==================================
 #####================ LANGUAGE ================#######
 # Language files in language folders
-lang: 'PL-pl'
+Lang: 'PL-pl'
 #####================ ADMINISTRATION CONF ================#######
-
+#Warning if more user First Join the same IP
+#Warning in console and administration.
+WarningIP: false
+#Warning player whe join
+PlayerWarningIP: false
 #####================ ================#######
 #####================ ================#######
