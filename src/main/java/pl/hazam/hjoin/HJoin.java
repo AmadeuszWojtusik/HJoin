@@ -57,8 +57,8 @@ public class HJoin extends JavaPlugin {
             getLogger().info("PLUGIN VER: " + this.getConfig().getString("version"));
             getLogger().info("CONFIG VER: " + globalConfig.getString("Version"));
         }else{ //=========================================== JEŻELI SIĘ JEDNAK NIE POWIEDZIE
-            getLogger().warning("DATABASE ERROR");
-            getLogger().warning("DISABLING PLUGIN");
+            getLogger().warning("---------DATABASE ERROR---------");
+            getLogger().warning("---------DISABLING PLUGIN HJ---------");
             onDisable();
         }
     }

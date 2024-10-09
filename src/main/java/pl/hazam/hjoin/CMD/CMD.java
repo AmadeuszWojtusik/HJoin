@@ -27,6 +27,10 @@ public class CMD implements CommandExecutor {
             sender.sendMessage(BOLD + " " + DARK_GREEN + "*========================================*");
             return true;
         }
+        if (command.getName().equalsIgnoreCase("hj raport")) {
+
+            return true;
+        }
         return false;
     }
 }
